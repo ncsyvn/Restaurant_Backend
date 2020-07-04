@@ -34,6 +34,11 @@ def get_all_product():
             item['AmountSellDay'] = statistic['amount_sell_day']
             item['AmountBuyWeek'] = statistic['amount_buy_week']
             item['AmountSellWeek'] = statistic['amount_sell_week']
+            item['ProductInfor'] = [
+                {
+                    "a": "a"
+                }
+            ]
         return get_success(result)
     # except:
     #     return get_fail()

@@ -1,7 +1,7 @@
 from flask import Flask
 from src.extensions import db, ma
 from src.settings import DevConfig
-from src.api.v1 import product, bill, bill_detail
+from src.api.v1 import product, bill, bill_detail, statistic
 
 
 def create_app(config_object=DevConfig):
@@ -41,3 +41,4 @@ def register_blueprints(app):
     app.register_blueprint(product.api, url_prefix='/api/v1/products')
     app.register_blueprint(bill.api, url_prefix='/api/v1/bills')
     app.register_blueprint(bill_detail.api, url_prefix='/api/v1/bill_detail')
+    app.register_blueprint(statistic.api, url_prefix='/api/v1/statistic')
