@@ -7,6 +7,6 @@ print(y)
 y = y.replace(day=1)
 print(y)
 
-
+print(y.day)
 t = monthrange(2020, 7)
-print(t)
+print(t[1])

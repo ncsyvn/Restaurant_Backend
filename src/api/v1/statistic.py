@@ -6,6 +6,8 @@ from src.utils import object_as_dict, create_fail, create_success, get_fail, get
     update_fail, update_success, delete_fail, delete_success, product_amount_sell_day
 from src.extensions import db
 import datetime
+from calendar import monthrange
+
 
 parser = FlaskParser()
 api = Blueprint('statistic', __name__)
@@ -53,32 +55,41 @@ def statistic_by_day():
         "doanhThu": revenue_today,
         "soMuaTang": buy_today - buy_previous,
         "soBanTang": sell_today - sell_previous,
-        "doanhThuTang": revenue_today/revenue_previous if revenue_previous!=0 else 100
+        "doanhThuTang": (revenue_today/revenue_previous)*100 if revenue_previous != 0 else 100
     }
     return get_success(result)
 
+@api.route('/month', methods=['GET'])
+def statistic_by_month():
+    try:
+        page_size = request.args.get('page_size', 25, type=int)
+        page_number = request.args.get('page_number', 1, type=int)
 
-    # if DatetimeStart is not None:
-    #     i = 0
-    #     while i < len(result):
-    #         if (result[i]['Datetime'] - DatetimeStart).days < 0:
-    #             result.pop(i)
-    #         else:
-    #             i += 1
-    #
-    # if DatetimeEnd is not None:
-    #     i = 0
-    #     while i < len(result):
-    #         if (result[i]['Datetime'] - DatetimeEnd).days > 0:
-    #             result.pop(i)
-    #         else:
-    #             i += 1
-    # start_index = page_size * (page_number - 1)
-    # end_index = page_size * page_number
-    # if start_index >= len(result):
-    #     result = []
-    # elif end_index > len(result):
-    #     result = result[start_index: len(result)]
-    # else:
-    #     result = result[start_index: end_index]
-    # return get_success(result)
+        month = int(request.args.get('month'))
+        year = int(request.args.get("year"))
+        amount_day_of_month = monthrange(year, month)[1]
+        start_day = datetime.datetime.strptime(str(year) + "-" + str(month) + "-" + "1 " + "00:00:01", '%Y-%m-%d %H:%M:%S')
+
+        revenues = []
+        for i in range(amount_day_of_month):
+            revenues.append(0)
+
+        row_bill_detail = BillDetail.query.all()
+        result_bill_detail = [object_as_dict(x) for x in row_bill_detail]
+        row_bills = Bill.query.all()
+        result_bills = [object_as_dict(x) for x in row_bills]
+        for x in result_bill_detail:
+            for y in result_bills:
+                if x["BillId"] == y['BillId'] and 0 <= (y['Datetime'].date() - start_day.date()).days < amount_day_of_month:
+                    if y["Type"] == 0:
+                        revenues[y['Datetime'].day-1] -= x["Amount"] * x["Price"]
+                    elif y["Type"] == 1:
+                        revenues[y['Datetime'].day-1] += x["Amount"] * x["Price"]
+        result = []
+        for i in range(amount_day_of_month):
+            result.append([str(i+1), revenues[i]])
+        return get_success(result)
+    except:
+        return get_fail()
+    return get_fail()
+

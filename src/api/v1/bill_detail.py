@@ -5,7 +5,7 @@ from src.models import BillDetail
 from src.utils import object_as_dict, create_fail, create_success, get_fail, get_success, \
     update_fail, update_success, delete_fail, delete_success
 from src.extensions import db
-import datetime
+import random
 
 
 parser = FlaskParser()
@@ -36,6 +36,18 @@ def get_BillDetail_by_id(BillDetailId):
         row = BillDetail.query.get(BillDetailId)
         result = object_as_dict(row)
         return get_success(result)
+    except:
+        return get_fail()
+    return get_fail()
+
+
+@api.route('/generate_amount', methods=['GET'])
+def generate_amount():
+    try:
+        ProductId = request.args.get('ProductId', type=int)
+        Weather = request.args.get('Weather', type=int)
+        Temperature = request.args.get('Temperature', type=float)
+        return get_success(random.randint(60, 90))
     except:
         return get_fail()
     return get_fail()
@@ -87,6 +99,7 @@ def put(BillDetailId):
     except:
         return update_fail()
     params = {
+        'BillDetailId': fields.Integer(),
         'BillId': fields.Integer(),
         'ProductId': fields.Integer(),
         'TotalMoney': fields.Float(),

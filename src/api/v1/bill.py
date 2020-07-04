@@ -132,6 +132,7 @@ def put(BillId):
     except:
         return update_fail()
     params = {
+        'BillId': fields.Integer(),
         'Type': fields.Integer(),
         'Datetime': fields.DateTime(),
         'TotalMoney': fields.Float(),

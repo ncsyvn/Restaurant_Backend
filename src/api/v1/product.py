@@ -35,10 +35,56 @@ def get_all_product():
             item['AmountBuyWeek'] = statistic['amount_buy_week']
             item['AmountSellWeek'] = statistic['amount_sell_week']
             item['ProductInfor'] = [
-                {
-                    "a": "a"
-                }
-            ]
+            {
+              'WeekDay': "Thứ 2",
+              'Weather': "Nắng",
+              'Temperature': "29",
+              'NumberPurchased': 30,
+              'NumberSold': 25
+            },
+            {
+              'WeekDay': "Thứ 3",
+              'Weather': "Mưa",
+              'Temperature': "28",
+              'NumberPurchased': 40,
+              'NumberSold': 30
+            },
+            {
+              'WeekDay': "Thứ 4",
+              'Weather': "Nắng",
+              'Temperature': "30",
+              'NumberPurchased': 27,
+              'NumberSold': 25
+            },
+            {
+              'WeekDay': "Thứ 5",
+              'Weather': "Mây",
+              'Temperature': "27",
+              'NumberPurchased': 46,
+              'NumberSold': 37
+            },
+            {
+              'WeekDay': "Thứ 6",
+              'Weather': "Bão",
+              'Temperature': "25",
+              'NumberPurchased': 45,
+              'NumberSold': 39
+            },
+            {
+              'WeekDay': "Thứ 7",
+              'Weather': "Mưa",
+              'Temperature': "26",
+              'NumberPurchased': 24,
+              'NumberSold': 24
+            },
+            {
+              'WeekDay': "Chủ nhật",
+              'Weather': "Mưa",
+              'Temperature': "29",
+              'NumberPurchased': 35,
+              'NumberSold': 29
+            }
+          ]
         return get_success(result)
     # except:
     #     return get_fail()
@@ -76,10 +122,12 @@ def post():
 
     params = {
         'ProductName': fields.String(),
+        'Thumbnail': fields.String()
     }
     json_data = parser.parse(params)
-    ProductName = json_data.get('ProductName', None).strip()
-    new_values = Product(ProductName=ProductName)
+    ProductName = json_data.get('ProductName', "abc").strip()
+    Thumbnail = json_data.get('Thumbnail', "abc").strip()
+    new_values = Product(ProductName=ProductName, Thumbnail=Thumbnail)
     try:
         db.session.add(new_values)
         db.session.commit()
@@ -96,12 +144,18 @@ def put(ProductId):
     except:
         return update_fail()
     params = {
+        'ProductId': fields.Integer(),
         'ProductName': fields.String(),
+        'Thumbnail': fields.String()
     }
     json_data = parser.parse(params)
-    ProductName = json_data.get('ProductName', None).strip()
+    ProductName = json_data.get('ProductName', "abc").strip()
+    Thumbnail = json_data.get('Thumbnail', "abc").strip()
     if ProductName is not None:
         row.ProductName = ProductName
+    if Thumbnail is not None:
+        row.Thumbnail = Thumbnail
+
     try:
         db.session.commit()
         return update_success()

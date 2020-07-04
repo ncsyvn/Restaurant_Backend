@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fe6aded-69a0-40e8-8106-e4979698a4bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/v1/statistic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/v1/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/v1/bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/bill.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/v1/bill_detail.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/bill_detail.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/v1/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/v1/statistic.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/statistic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/v1/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,7 +49,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test (1)">
+  <component name="RunManager" selected="Python.manage">
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="RestaurantBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -114,8 +115,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.manage" />
+        <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>

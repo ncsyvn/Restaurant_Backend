@@ -2,6 +2,7 @@ from flask import Flask
 from src.extensions import db, ma
 from src.settings import DevConfig
 from src.api.v1 import product, bill, bill_detail, statistic
+from flask_cors import CORS
 
 
 def create_app(config_object=DevConfig):
@@ -13,6 +14,7 @@ def create_app(config_object=DevConfig):
         You can see config_object in the settings.py file
     """
     app = Flask(__name__, static_url_path="", static_folder="./files", template_folder="./template")
+    CORS(app)
     app.config.from_object(config_object)
     register_extensions(app, config_object)
     register_blueprints(app)
