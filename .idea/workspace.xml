@@ -2,15 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fe6aded-69a0-40e8-8106-e4979698a4bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/models/model_8_layer/saved_model.pb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/model_8_layer/variables/variables.data-00000-of-00001" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/model_8_layer/variables/variables.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/RestaurantBackend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RestaurantBackend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/v1/bill.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/bill.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/v1/bill_detail.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/bill_detail.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/v1/product.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/product.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/v1/statistic.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/statistic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/v1/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/v1/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,29 +33,49 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1duCRCiNh4oLEZmv7gGPKXblitV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Restaurant_Model" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\STUDIES\JOB\Other Work\Code\Restaurant_Backend\src\models" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\STUDIES\JOB\Other Work\Code\Restaurant_Backend\src\models" />
+      <recent name="D:\STUDIES\JOB\Other Work\Code\Restaurant_Backend" />
       <recent name="D:\STUDIES\JOB\Other Work\Code\RestaurantBackend\src" />
       <recent name="D:\STUDIES\JOB\Other Work\Code\RestaurantBackend" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager" selected="Python.manage">
+    <configuration name="bill_detail" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="RestaurantBackend" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/api/v1" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/api/v1/bill_detail.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="RestaurantBackend" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,25 +142,96 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.manage" />
+        <item itemvalue="Python.bill_detail" />
         <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fe6aded-69a0-40e8-8106-e4979698a4bd" name="Default Changelist" comment="" />
+      <created>1601392128413</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601392128413</updated>
+    </task>
+    <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1608306597189">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1608306597189" />
+    <state width="1345" height="2" key="GridCell.Tab.0.bottom" timestamp="1608306817935">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="2" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1608306817935" />
+    <state width="1345" height="2" key="GridCell.Tab.0.center" timestamp="1608306817935">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="2" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1608306817935" />
+    <state width="1345" height="2" key="GridCell.Tab.0.left" timestamp="1608306817935">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="2" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1608306817935" />
+    <state width="1345" height="2" key="GridCell.Tab.0.right" timestamp="1608306817935">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="2" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1608306817935" />
+    <state width="1345" height="223" key="GridCell.Tab.1.bottom" timestamp="1605280326252">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="223" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1605280326252" />
+    <state width="1345" height="223" key="GridCell.Tab.1.center" timestamp="1605280326251">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="223" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1605280326251" />
+    <state width="1345" height="223" key="GridCell.Tab.1.left" timestamp="1605280326251">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="223" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1605280326251" />
+    <state width="1345" height="223" key="GridCell.Tab.1.right" timestamp="1605280326251">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1345" height="223" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1605280326251" />
+    <state x="184" y="9" key="SettingsEditor" timestamp="1605673772542">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1605673772542" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/api/v1/bill_detail.py</url>
+          <line>159</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="MODEL" />
+        <watch expression="train_stats_data" />
+        <watch expression="row" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

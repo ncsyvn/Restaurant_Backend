@@ -6,6 +6,7 @@ class Product(db.Model):
     ProductId = db.Column(db.Integer, primary_key=True, nullable=False)
     ProductName = db.Column(db.String(255))
     Thumbnail = db.Column(db.String(255))
+    ModelID = db.Column(db.Integer)
 
 
 class Bill(db.Model):
@@ -16,6 +17,9 @@ class Bill(db.Model):
     TotalMoney = db.Column(db.Float)
     Description = db.Column(db.String(1000))
     Datetime = db.Column(db.DateTime())
+    Weather = db.Column(db.Integer)
+    Temperature = db.Column(db.Integer)
+
 
 class BillDetail(db.Model):
     __tablename__ = 'bill_detail'

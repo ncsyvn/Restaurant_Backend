@@ -1,16 +1,36 @@
 from flask import Blueprint, request
 from webargs.flaskparser import FlaskParser
 from marshmallow import fields
-from src.models import BillDetail
+from src.models import BillDetail, Product
 from src.utils import object_as_dict, create_fail, create_success, get_fail, get_success, \
     update_fail, update_success, delete_fail, delete_success
 from src.extensions import db
-import random
-
+import pandas as pd
+import tensorflow as tf
+import numpy as np
+from tensorflow import keras
+import datetime
 
 parser = FlaskParser()
 api = Blueprint('bill_detail', __name__)
+# MODEL = joblib.load('models/linear_regression.sav')
+MODEL = tf.keras.models.load_model('models/model_8_layer')
 
+# train_stats_data = {
+#             'count': [56.0, 56.0, 56.0, 56.0],
+#             'mean': [5.589286, 1.785714, 27.946429, 0.410714],
+#             'std': [2.877984, 0.706188, 1.444987, 0.757431],
+#             'min': [1.0, 1.0, 25.0, 0.0],
+#             '25%': [3.0, 1.0, 27.0, 0.0],
+#             '50%': [5.5, 2.0, 28.0, 0.0],
+#             '75%': [8.0, 2.0, 29.0, 1.0],
+#             'max': [10.0, 3.0, 30.0, 3.0],
+#             }
+# train_stats = pd.DataFrame(train_stats_data,
+#                   index=pd.Index(['ModelId', 'Weather', 'Temperature', 'Inventory']),
+#                   columns=pd.Index(['count', 'mean', 'std', 'min', '25%', '50%', '75%', 'max']))
+# def norm(x):
+#     return (x - train_stats['mean']) / train_stats['std']
 
 @api.route('', methods=['GET'])
 def get_all_bill_detail():
@@ -24,6 +44,12 @@ def get_all_bill_detail():
         else:
             result = [object_as_dict(x) for x in BillDetail.query.order_by(BillDetail.BillDetailId).
                 paginate(page=page_number, per_page=page_size).items]
+            list_products = [object_as_dict(x) for x in Product.query.order_by(Product.ProductId).all()]
+            for x in result:
+                for y in list_products:
+                    if x["ProductId"] == y["ProductId"]:
+                        x["ProductName"] = y["ProductName"]
+                        break
         return get_success(result)
     except:
         return get_fail()
@@ -44,10 +70,27 @@ def get_BillDetail_by_id(BillDetailId):
 @api.route('/generate_amount', methods=['GET'])
 def generate_amount():
     try:
-        ProductId = request.args.get('ProductId', type=int)
+        ModelId = request.args.get('ProductId', type=int)
         Weather = request.args.get('Weather', type=int)
-        Temperature = request.args.get('Temperature', type=float)
-        return get_success(random.randint(60, 90))
+        Temperature = request.args.get('Temperature', type=int)
+        Datetime = request.args.get('Datetime')
+        day = Datetime[1:11]
+        hour = Datetime[12:20]
+        Datetime = datetime.datetime.strptime(day + ' ' + hour, '%Y-%m-%d %H:%M:%S')
+        week_day = Datetime.weekday() + 2
+        d = day[8:]
+        m = day[5:7]
+        y = day[:4]
+
+        predict_data = pd.DataFrame([[float(d), float(m), float(y), float(week_day), float(ModelId),
+                                      float(Weather), float(Temperature)]],
+                                    columns=['Day', 'Month', 'Year', 'DayOfWeek', 'ModelId', 'Weather', 'Temperature'])
+        print(predict_data)
+        print(type(predict_data))
+        result = int(MODEL.predict(predict_data)[0][0])
+        print(result)
+        return get_success(result)
+        print(int(result))
     except:
         return get_fail()
     return get_fail()
@@ -58,6 +101,12 @@ def search_by_bill_id(BillId):
     try:
         row = BillDetail.query.filter(BillDetail.BillId == BillId)
         result = [object_as_dict(x) for x in row]
+        list_products = [object_as_dict(x) for x in Product.query.order_by(Product.ProductId).all()]
+        for x in result:
+            for y in list_products:
+                if x["ProductId"] == y["ProductId"]:
+                    x["ProductName"] = y["ProductName"]
+                    break
         return get_success(result)
     except:
         return get_fail()
@@ -105,6 +154,7 @@ def put(BillDetailId):
         'TotalMoney': fields.Float(),
         'Price': fields.Float(),
         'Amount': fields.Integer(),
+        'ProductName': fields.String()
     }
 
     json_data = parser.parse(params)

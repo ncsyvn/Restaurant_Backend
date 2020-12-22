@@ -19,7 +19,7 @@ def statistic_by_day():
 
     Datetime = request.args.get('Datetime')
     if Datetime is not None:
-        Datetime = datetime.datetime.strptime(Datetime, '%Y-%m-%d %H:%M:%S')
+        Datetime = datetime.datetime.strptime(Datetime, '%Y-%m-%d')
 
     row_bill_detail = BillDetail.query.all()
     result_bill_detail = [object_as_dict(x) for x in row_bill_detail]
@@ -55,7 +55,7 @@ def statistic_by_day():
         "doanhThu": revenue_today,
         "soMuaTang": buy_today - buy_previous,
         "soBanTang": sell_today - sell_previous,
-        "doanhThuTang": (revenue_today/revenue_previous)*100 if revenue_previous != 0 else 100
+        "doanhThuTang": str(revenue_today/revenue_previous*100)[0:6] if revenue_previous != 0 else 100
     }
     return get_success(result)
 

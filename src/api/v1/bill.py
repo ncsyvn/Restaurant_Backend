@@ -44,21 +44,24 @@ def get_Bill_by_id(BillId):
 def search():
     page_size = request.args.get('page_size', 25, type=int)
     page_number = request.args.get('page_number', 1, type=int)
-    TotalMoneyStart = request.args.get('TotalMoneyStart', type=float)
-    TotalMoneyEnd = request.args.get('TotalMoneyEnd', type=float)
+    TotalMoneyStart = request.args.get('TotalMoneyStart', type=str)
+    TotalMoneyEnd = request.args.get('TotalMoneyEnd', type=str)
+    Type = request.args.get("Type", type=int)
 
     DatetimeStart = request.args.get('DatetimeStart')
-    if DatetimeStart is not None:
-        DatetimeStart = datetime.datetime.strptime(DatetimeStart, '%Y-%m-%d %H:%M:%S')
+    if DatetimeStart is not None and DatetimeStart != "":
+        DatetimeStart = datetime.datetime.strptime(DatetimeStart, '%Y-%m-%d')
 
     DatetimeEnd = request.args.get('DatetimeEnd')
-    if DatetimeEnd is not None:
-        DatetimeEnd = datetime.datetime.strptime(DatetimeEnd, '%Y-%m-%d %H:%M:%S')
+    if DatetimeEnd is not None and DatetimeStart != "":
+        DatetimeEnd = datetime.datetime.strptime(DatetimeEnd, '%Y-%m-%d')
 
-    row = Bill.query.order_by(Bill.BillId).all()
+    row = Bill.query.filter(Bill.Type == Type)
+
     result = [object_as_dict(x) for x in row]
 
-    if TotalMoneyStart is not None:
+    if TotalMoneyStart is not None and TotalMoneyStart != "":
+        TotalMoneyStart = float(TotalMoneyStart)
         i = 0
         while i < len(result):
             if result[i]['TotalMoney'] < TotalMoneyStart:
@@ -66,7 +69,8 @@ def search():
             else:
                 i += 1
 
-    if TotalMoneyEnd is not None:
+    if TotalMoneyEnd is not None and TotalMoneyEnd != "":
+        TotalMoneyEnd = float(TotalMoneyEnd)
         i = 0
         while i < len(result):
             if result[i]['TotalMoney'] > TotalMoneyEnd:
@@ -74,18 +78,18 @@ def search():
             else:
                 i += 1
 
-    if DatetimeStart is not None:
+    if DatetimeStart is not None and DatetimeStart != "":
         i = 0
         while i < len(result):
-            if (result[i]['Datetime'] - DatetimeStart).days < 0:
+            if (result[i]['Datetime'] - DatetimeStart).days < -1:
                 result.pop(i)
             else:
                 i += 1
 
-    if DatetimeEnd is not None:
+    if DatetimeEnd is not None and DatetimeStart != "":
         i = 0
         while i < len(result):
-            if (result[i]['Datetime'] - DatetimeEnd).days > 0:
+            if (result[i]['Datetime'] - DatetimeEnd).days > 1:
                 result.pop(i)
             else:
                 i += 1
@@ -106,7 +110,9 @@ def post():
         'Type': fields.Integer(),
         'Datetime': fields.DateTime(),
         'TotalMoney': fields.Float(),
-        'Description': fields.String()
+        'Description': fields.String(),
+        'Weather': fields.Integer(),
+        'Temperature': fields.Integer()
     }
 
     json_data = parser.parse(params)
@@ -114,12 +120,27 @@ def post():
     Datetime = json_data.get('Datetime')
     TotalMoney = json_data.get('TotalMoney')
     Description = json_data.get('Description')
+    Weather = json_data.get('Weather')
+    Temperature = json_data.get('Temperature')
 
-    new_values = Bill(Type=Type, Datetime=Datetime, TotalMoney=TotalMoney, Description=Description)
+    print(json_data)
+    new_values = Bill(Type=Type, Datetime=Datetime, TotalMoney=TotalMoney, Description=Description, Weather=Weather,
+                      Temperature=Temperature)
     try:
         db.session.add(new_values)
         db.session.commit()
-        return create_success()
+        all_bills = Bill.query.order_by(Bill.BillId).all()
+        max = 0
+        for bill in all_bills:
+            if bill.BillId > max:
+                max = bill.BillId
+        return {
+            "status": True,
+            "msg": "Thêm mới thành công",
+            "data": {
+                "BillId": max
+            }
+        }
     except:
         return create_fail()
     return create_fail()
@@ -131,28 +152,35 @@ def put(BillId):
         row = Bill.query.get(BillId)
     except:
         return update_fail()
-    params = {
-        'BillId': fields.Integer(),
-        'Type': fields.Integer(),
-        'Datetime': fields.DateTime(),
-        'TotalMoney': fields.Float(),
-        'Description': fields.String()
-    }
-
-    json_data = parser.parse(params)
+    json_data = request.get_json()
     Type = json_data.get('Type')
     Datetime = json_data.get('Datetime')
     TotalMoney = json_data.get('TotalMoney')
     Description = json_data.get('Description')
+    Weather = json_data.get('Weather')
+    Temperature = json_data.get('Temperature')
+
+    Datetime = str(Datetime)
 
     if Type is not None:
         row.Type = Type
     if Datetime is not None:
-        row.Datetime = Datetime
+        try:
+            day = Datetime[:10]
+            hour = Datetime[11:19]
+            row.Datetime = datetime.datetime.strptime(day + ' ' + hour, '%Y-%m-%d %H:%M:%S')
+        except:
+            return update_fail()
     if TotalMoney is not None:
         row.TotalMoney = TotalMoney
-    if Type is not None:
+    if Description is not None:
         row.Description = Description
+    else:
+        row.Description = ""
+    if Weather is not None:
+        row.Weather = Weather
+    if Temperature is not None:
+        row.Temperature = Temperature
     try:
         db.session.commit()
         return update_success()
